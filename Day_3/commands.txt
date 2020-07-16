@@ -1,4 +1,0 @@
-
-mv t.log.1 "t-`date +"%Y_%m_%d"`.log"
-
-find . -mtime +7
