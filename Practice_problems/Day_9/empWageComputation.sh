@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 welcome_Message="Welcome to Employee wage computation program"
 echo $welcome_Message
 wagePerHour=20
@@ -12,6 +12,7 @@ totalAttendedDays=0
 isAbsent=0
 isPresent=1
 isPartTime=2
+dayCount=0
 function getWorkHours() {
 	case $attendance in
 	1)
@@ -32,16 +33,23 @@ do
 	$isPresent)
 	getWorkHours
 	totalAttendedDays=$(($totalAttendedDays+1))
+	dayCount=$(($dayCount+1))
+	dailyWage[$dayCount]=$(($wagePerHour*$fullDayHours))
 	;;
 	$isPartTime)
 	getWorkHours
 	totalAttendedDays=$(($totalAttendedDays+1))
+	dayCount=$(($dayCount+1))
+	dailyWage[$dayCount]=$(($wagePerHour*$partTimeHours))
 	;;
 	$isAbsent)
 	getWorkHours
 	totalAttendedDays=$(($totalAttendedDays+0))
+	dayCount=$(($dayCount+1))
+	dailyWage[$dayCount]=$(($wagePerHour*$isAbsent))
 	;;
 	esac
 done
 monthlyWage=$(($totalAttendedHours*$wagePerHour))
+echo "Daily Wage of Employee :-"${dailyWage[@]}
 echo "Monthly Wage of employee is :- "$monthlyWage
