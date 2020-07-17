@@ -51,5 +51,8 @@ do
 	esac
 done
 monthlyWage=$(($totalAttendedHours*$wagePerHour))
-echo "Daily Wage of Employee :-"${dailyWage[@]}
+for days in ${!dailyWage[@]}
+do
+	echo "for day $days Wage of Employee is " ${dailyWage[$days]}
+done
 echo "Monthly Wage of employee is :- "$monthlyWage
