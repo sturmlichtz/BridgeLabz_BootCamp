@@ -7,25 +7,29 @@ partTimeHours=4
 dailyWage=0
 monthlyWage=0
 workingDayInMonth=20
+totalAttendedHours=0
+totalAttendedDays=0
 isAbsent=0
 isPresent=1
 isPartTime=2
-attendance=$((RANDOM%3))
-case $attendance in
-$isPresent)
-	echo "Employee was Present for $(($fullDayHours*$workingDayInMonth)) hours"
-	monthlyWage=$(($wagePerHour*$fullDayHours*$workingDayInMonth))
-	echo "Monthly Wage is :- " $monthlyWage
+while [ $totalAttendedDays -le 20 -o $totalAttendedHours -le 100 ]
+do
+	attendance=$((RANDOM%3))
+	case $attendance in
+	$isPresent)
+	totalAttendedHours=$(($totalAttendedHours+8))
+	totalAttendedDays=$(($totalAttendedDays+1))
 	;;
-$isPartTime)
-	echo "Employee was Present for $(($partTimeHours*$workingDayInMonth)) hours"
-	monthlyWage=$(($wagePerHour*$partTimeHours*$workingDayInMonth))
-	echo "Monthly Wage is :- " $monthlyWage
+	$isPartTime)
+	totalAttendedHours=$(($totalAttendedHours+4))
+	totalAttendedDays=$(($totalAttendedDays+1))
 	;;
-$isAbsent)
-	echo "Empolyee was Absent"
-	echo "Monthly Wage is :- " $monthlyWage
+	$isAbsent)
+	totalAttendedHours=$(($totalAttendedHours+0))
+	totalAttendedDays=$(($totalAttendedDays+0))
 	;;
-esac
-
+	esac
+done
+monthlyWage=$(($totalAttendedHours*$wagePerHour))
+echo "Monthly Wage of employee is :- "$monthlyWage
 
