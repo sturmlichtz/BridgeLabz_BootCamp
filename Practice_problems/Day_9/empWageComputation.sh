@@ -9,20 +9,21 @@ isAbsent=0
 isPresent=1
 isPartTime=2
 attendance=$((RANDOM%3))
-if [ $attendance -eq $isPresent ]
-then
+case $attendance in
+$isPresent)
 	echo "Employee was Present for $fullDayHours hours"
 	dailyWage=$(($wagePerHour*$fullDayHours))
 	echo "Daily Wages are :- " $dailyWage
-elif [ $attendance -eq $isPartTime ]
-then
+	;;
+$isPartTime)
 	echo "Employee was Present for $partTimeHours hours"
 	dailyWage=$(($wagePerHour*$partTimeHours))
 	echo "Daily Wages are :- " $dailyWage
-
-elif [ $attendance -eq $isAbsent ]
-then
+	;;
+$isAbsent)
 	echo "Empolyee was Absent"
 	echo "Daily Wages are :- " $dailyWage
-fi
+	;;
+esac
+
 
